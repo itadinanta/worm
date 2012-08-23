@@ -1,0 +1,83 @@
+!!ARBvp1.0
+# from original ARB documentation at
+# http://oss.sgi.com/projects/ogl-sample/registry/ARB/vertex_program.txt
+#
+#    (73) How do you implement a simple ambient, specular, and diffuse infinite
+#    lighting computation with a single light and an eye-space normal?
+#
+	ATTRIB iPos         = vertex.position;
+	ATTRIB iNormal      = vertex.normal;
+	PARAM  mvinv[4]     = { state.matrix.modelview.invtrans };
+	PARAM  mvp[4]       = { state.matrix.mvp };
+	PARAM  mv[4]		= { state.matrix.modelview };
+	PARAM  mvi[4]		= { state.matrix.modelview.inverse };
+	PARAM  camera		= program.local[0];
+	PARAM  lightPos     = state.light[0].position;
+#	PARAM  halfDir      = state.light[0].half;
+	PARAM  specExp      = state.material.shininess;
+	PARAM  ambientCol   = state.lightprod[0].ambient;
+	PARAM  diffuseCol   = state.lightprod[0].diffuse;
+	PARAM  specularCol  = state.lightprod[0].specular;
+	PARAM  zero	    = {0.0, 0.0, 0.0, 0.0};
+	PARAM  lum	    = {0.3, 0.6, 0.1, 1.0};
+	PARAM  oneHalf  = {0.5, 0.5, 0.5, 1.0};
+	PARAM  Z		= {0.0, 0.0, 1.0, 1.0};
+	TEMP   tmpPos, xfNormal, xfLight, xfV, halfDir, temp, dots, tmpShade;
+	OUTPUT oPos         = result.position;
+	OUTPUT oColor       = result.color;
+	OUTPUT oShade	    = result.texcoord[1];
+#	OUTPUT oTex1D	    = result.
+
+	# Transform vertex to camera space
+	DP4   xfV.x, mv[0], iPos;
+	DP4   xfV.y, mv[1], iPos;
+	DP4   xfV.z, mv[2], iPos;
+	DP4	  xfV.w, mv[3], iPos;
+
+	# Transform normal to camera space
+	DP3   xfNormal.x, mv[0], iNormal;
+	DP3   xfNormal.y, mv[1], iNormal;
+	DP3   xfNormal.z, mv[2], iNormal;
+
+	# Normalized light direction
+	SUB   xfLight, lightPos, xfV;
+	DP3   temp.w, xfLight, xfLight;
+	RSQ	  temp.w, temp.w;
+	MUL   xfLight.xyz, temp.w, xfLight;
+
+	# Normalized view direction
+	SUB	  xfV, camera, xfV;
+	DP3   temp.w, xfV, xfV;
+	RSQ	  temp.w, temp.w;
+	MUL   xfV.xyz, temp.w, xfV;
+
+	# halfDir
+	ADD	  halfDir, xfV, xfLight;
+	MUL	  halfDir, oneHalf, halfDir;       
+		        
+	# Compute diffuse and specular dot products and use LIT to compute
+	# lighting coefficients.
+	DP3   dots.x, xfNormal, xfLight;
+	DP3   dots.y, xfNormal, halfDir;
+	MOV   dots.w, specExp.x;
+	LIT   dots, dots;
+
+	DP3   oShade.x, xfNormal, xfLight;
+
+	# Transform the vertex to clip coordinates.   
+	MOV tmpPos, iPos;
+	DP4   oPos.x, mvp[0], tmpPos;
+	DP4   oPos.y, mvp[1], tmpPos;
+	DP4   oPos.z, mvp[2], tmpPos;
+	DP4   oPos.w, mvp[3], tmpPos;
+	
+	# Accumulate color contributions.
+	MAD   temp, dots.y, diffuseCol, ambientCol;
+#	MOV	  oShade.x, dots.y;
+#	DP3   oShade.x, lum, temp; # ambient+diffuse in one component
+	MUL   temp, dots.z, specularCol;
+#	DP3   oShade.y, lum, temp; # specular component here
+	MOV	  oShade.y, dots.z;
+#	MOV   oShade.y, xfV.z;
+	MOV   oColor, vertex.color;
+END

@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.0//EN"
+"http://www.w3.org/TR/2001/REC-SVG-20010904/DTD/svg10.dtd">
+<!-- Created with Sodipodi ("http://www.sodipodi.com/") -->
+<svg
+   id="svg559"
+   sodipodi:version="0.33"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:xlink="http://www.w3.org/1999/xlink"
+   width="210mm"
+   height="297mm"
+   sodipodi:docbase="/home/nicola/projects/worm"
+   sodipodi:docname="/home/nicola/projects/worm/smiley.svg">
+  <defs
+     id="defs561">
+    <linearGradient
+       id="linearGradient576">
+      <stop
+         style="stop-color:#000;stop-opacity:1;"
+         offset="0"
+         id="stop577" />
+      <stop
+         style="stop-color:#fff;stop-opacity:1;"
+         offset="1"
+         id="stop578" />
+    </linearGradient>
+    <linearGradient
+       xlink:href="#linearGradient576"
+       id="linearGradient579" />
+  </defs>
+  <sodipodi:namedview
+     id="base"
+     snaptoguides="true"
+     snaptogrid="true"
+     showgrid="true" />
+  <path
+     sodipodi:type="arc"
+     style="stroke:#000000;stroke-opacity:1.0000;fill-rule:evenodd;fill:#ffff80;fill-opacity:1.0000;stroke-width:5.0000;stroke-linejoin:miter;stroke-linecap:butt;stroke-dasharray:none;"
+     id="path575"
+     d="M 513.7795 503.1496 A 141.7323 141.7322 0 1 "
+     sodipodi:cx="372.0472"
+     sodipodi:cy="503.1496"
+     sodipodi:rx="141.7323"
+     sodipodi:ry="141.7322" />
+  <path
+     sodipodi:type="arc"
+     style="font-size:12.000;fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:5.000000;"
+     id="path580"
+     d="M 441.8545 557.6824 A 88.58266 88.58266 0 "
+     sodipodi:cx="372.0472"
+     sodipodi:cy="503.1496"
+     sodipodi:rx="88.58266"
+     sodipodi:ry="88.58266"
+     sodipodi:start="0.663166"
+     sodipodi:end="2.478842"
+     sodipodi:open="true" />
+  <path
+     sodipodi:type="arc"
+     style="stroke:#000000;stroke-opacity:1;stroke-width:2.375000;stroke-dasharray:none;fill-rule:evenodd;fill:#000000;fill-opacity:1.0000;stroke-linejoin:miter;stroke-linecap:butt;"
+     id="path581"
+     d="M 372.0472 476.5748 A 26.57480 26.57480 0 1 "
+     sodipodi:cx="345.4724"
+     sodipodi:cy="476.5748"
+     sodipodi:rx="26.57480"
+     sodipodi:ry="26.57480"
+     transform="matrix(0.882407,0,0,1.000002,19.78363,-1.098633e-3)" />
+  <path
+     sodipodi:type="arc"
+     style="stroke:#000000;stroke-opacity:1;stroke-width:2.375000;stroke-dasharray:none;fill-rule:evenodd;fill:#000000;fill-opacity:1.0000;stroke-linejoin:miter;stroke-linecap:butt;"
+     id="path582"
+     d="M 372.0472 476.5748 A 26.57480 26.57480 0 1 "
+     sodipodi:cx="345.4724"
+     sodipodi:cy="476.5748"
+     sodipodi:rx="26.57480"
+     sodipodi:ry="26.57480"
+     transform="matrix(0.882407,0,0,1.000002,114.6164,-9.460449e-4)" />
+</svg>

@@ -1,0 +1,43 @@
+
+[executer]
+RunInTerminal=true
+
+[Project State]
+clean before build=false
+
+[filenumbers]
+0=11
+1=163
+2=8
+3=113
+4=238
+
+[filemarkers]
+0=
+1=
+2=
+3=
+4=
+
+[File View]
+filter.file.unmatch=*.so *.o *.a *.la
+filter.file.ignore.hidden=0
+filter.dir.ignore.hidden=0
+
+[filelist]
+0=/home/nicola/projects/worm/model.C
+1=/home/nicola/projects/worm/test.C
+2=/home/nicola/projects/worm/Makefile
+3=/home/nicola/projects/worm/worm.C
+4=/home/nicola/projects/worm/animation.C
+
+[Project Tree]
+0=0
+1=0:0
+2=0:1
+
+[Symbol Tree]
+0=1
+
+[File Tree]
+0=0

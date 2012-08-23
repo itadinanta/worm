@@ -1,0 +1,82 @@
+!!ARBvp1.0
+#
+#	Vertex shader for silhouetting
+#	(C) Nicola Orrù 2004
+#
+#	receives two triangles: (iV, iRef, iPos1) and (iV, iPos2, iRef) that
+#	share an edge (iV, iRef). 
+#	
+#	if both triangles are visible (or not visible), meaning the edge 
+#	is not a silhoutte one, the input vector is "collapsed" to camera position
+#	(thus being clipped away!)	
+#
+#	highlights: no need to compute and send triangle normals 
+#       down the pipeline (good for flexible or dynamic objects)
+#
+#	drawbacks:  it is redundant, as each edge must be processed twice
+#
+	ATTRIB iPos         = vertex.position; 		# position to test
+	ATTRIB iForceVis    = vertex.normal;		# set to (0,0,0) to force visibility of the edge
+	ATTRIB iV	    = vertex.attrib[9];   	# first point of the edge
+	ATTRIB iRef	    = vertex.attrib[10];	# second point of the edge 
+	ATTRIB iPos1	    = vertex.attrib[11];	# other point of 1st triangle
+	ATTRIB iPos2	    = vertex.attrib[12];	# other point of 2nd triangle
+	PARAM  mvp[4]       = { state.matrix.mvp };
+	PARAM  mvi[4]	    = { state.matrix.modelview.inverse };
+	PARAM  O	    = {0.0, 0.0, 0.0, 1.0};	# axis origin vector
+	PARAM  zoffset	    = {0, 0, -0.01, 0};
+	TEMP   tmpPos, oTemp;				# temporary for vertex pos
+	TEMP   xfV; 					# view vector
+	TEMP   dotN;					# normals-view dot products
+	TEMP   tRef;					# transformed iRef
+	TEMP   tN1;					# triangle normal 1, after translation
+	TEMP   tN2;					# triangle normal 2, after translation
+	TEMP   invC;					# camera position in model space
+	OUTPUT oPos         = result.position;
+	OUTPUT oColor       = result.color;
+#
+# 	compute triangle normals
+#
+	SUB tRef, iRef, iV;
+	SUB tN1, iPos1, iV;
+	SUB tN2, iPos2, iV;
+	XPD tN1, tN1, tRef;
+	XPD tN2, tRef, tN2;
+#
+# 	retrieve camera position in model space (?)
+#
+	DP4   invC.x, mvi[0], O;
+	DP4   invC.y, mvi[1], O;
+	DP4   invC.z, mvi[2], O;
+	DP4   invC.w, mvi[3], O;
+#
+# 	compute view direction
+#
+	SUB   xfV, iV, invC;
+#
+# 	compare normal signs
+#
+	DP3   dotN.x, tN1, xfV;
+	DP3   dotN.y, tN2, xfV;
+	MUL   dotN.z, dotN.x, dotN.y;   # dotN.z <=0 -> line is visible
+	MUL   dotN, iForceVis, dotN;    # (0.0,0.0,0.0) forces visibility
+	SGE   dotN, O.x, dotN.z;	# clips away positive products
+#
+#	collapse the line to the camera position (0,0,0)-(0,0,0) in cam-space
+#	if both normals face the same direction
+#
+	MUL   tmpPos, dotN, iPos;
+#
+# 	Transform the point to clip coordinates.   
+#
+	DP4   oTemp.x, mvp[0], tmpPos;
+	DP4   oTemp.y, mvp[1], tmpPos;
+	DP4   oTemp.z, mvp[2], tmpPos;
+	DP4   oTemp.w, mvp[3], tmpPos;
+#	ADD   oPos, oTemp, zoffset; # slight offset
+	MOV   oPos, oTemp;
+#
+#	Leave the color unchanged
+#
+	MOV   oColor, vertex.color;
+END
