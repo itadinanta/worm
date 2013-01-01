@@ -284,7 +284,7 @@ namespace model {
 		Index addAttributes(const RGBA& Color, const Vertex &TexCoord);
 		Index addAttributes(const RGBA& Color, const Vertex &TexCoord1, const Vertex &TexCoord2);
 		Index addAttributes(const RGBA& Color, const Vertex &TexCoord1, const Vertex &TexCoord2, const Vertex &TexCoord3);
-		Index addAttributes(const unsigned char bits, const RGBA& Color, const Vertex &TexCoord1, const Vertex &TexCoord2, const Vertex &TexCoord3, const Vertex &TexCoord3);
+		Index addAttributes(const unsigned char bits, const RGBA& Color, const Vertex &TexCoord1, const Vertex &TexCoord2, const Vertex &TexCoord3, const Vertex &TexCoord4);
 		virtual void flagSilhouetteEdges(const V3& viewPoint);
 		virtual void flagVisibleEdges();
 		void ClearVNA();			

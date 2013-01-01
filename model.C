@@ -2,6 +2,8 @@
 #include <map>
 #include <iterator>
 #include <fstream>
+#include <stdlib.h>
+#include <string.h>
 #include "scanner.h"
 #include <exception>
 #include "log.h"

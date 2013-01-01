@@ -3,6 +3,7 @@
 #include <sys/types.h>
 #include <sys/stat.h>
 #include <unistd.h>
+#include <string.h>
 #include "animation.h"
 #include "spline.h"
 #include "texture_storage.h"

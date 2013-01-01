@@ -3,6 +3,8 @@
 #include <map>
 #include <exception>
 #include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
 #include "log.h"
 
 class TokenMap:public map < mString, int, less < mString > > {

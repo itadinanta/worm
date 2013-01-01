@@ -1,6 +1,6 @@
 LIBOPTS=-lm -lstdc++ -lpng
 LIBGL=-lGL -lGLU -lglut
-COPTS=-ggdb -fmessage-length=0
+COPTS=-ggdb -fpermissive -fmessage-length=0 -Wwrite-strings
 CC=gcc
 OBJECTS=vecmath.o spline.o animation.o model.o texture_storage.o gameboard.o \
 	mainchar.o scanner.o log.o
@@ -11,7 +11,7 @@ test: test.C $(OBJECTS)
 	$(CC) $(COPTS) $(LIBOPTS) $(LIBGL) test.C -o test $(OBJECTS) && ./test
 
 worm: worm.C $(OBJECTS)
-	$(CC) $(COPTS) $(LIBOPTS) $(LIBGL) worm.C -o worm $(OBJECTS)
+	$(CC) $(COPTS) worm.C -o worm $(OBJECTS) $(LIBOPTS) $(LIBGL)
 
 compile: $(OBJECTS)
 
